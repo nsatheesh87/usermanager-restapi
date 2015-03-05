@@ -1,5 +1,18 @@
 <?php
 require(APPPATH.'libraries/REST_Controller.php');
+
+/**
+* CodeIgniter REST API Controller
+*
+* A fully RESTful server implementation for CodeIgniter using one library, one config file and one controller.
+*
+* @package CodeIgniter
+* @subpackage Controllers
+* @category Controller
+* @author Satheesh Narayanan
+* @license MIT
+* @link https://github.com/nsatheesh87/usermanager-restapi
+*/
  
 class Api extends REST_Controller {
 
@@ -14,6 +27,12 @@ class Api extends REST_Controller {
        
     }
 
+    /**
+    * Get Group information By ID
+    *
+    * @param INT
+    * @return XML|JSON
+    */
     public function group_get()
     {
          if(!$this->get('groupID'))
@@ -28,7 +47,12 @@ class Api extends REST_Controller {
 
     }
 
- 
+    /**
+    * Fetch user information by ID
+    *
+    * @param INT $id
+    * @return XML|JSON
+    */
    public function user_get()
     {
 
@@ -43,6 +67,12 @@ class Api extends REST_Controller {
  
     }
 
+    /**
+    * List all user records
+    *
+    * @param INT $limit {Optional}
+    * @return XML|JSON
+    */
     public function userlist_get()
     {
         $limit = $this->get('limit');
@@ -53,7 +83,13 @@ class Api extends REST_Controller {
         $this->response($user,200); 
     }
 
-     public function grouplist_get()
+    /**
+    * Fetch all group names
+    *
+    * @param INT $limit {optional}
+    * @return XML|JSON
+    */
+    public function grouplist_get()
     {
         $limit = $this->get('limit');
         if(empty($limit)){
@@ -64,8 +100,12 @@ class Api extends REST_Controller {
     }
 
 
-
-
+    /**
+    * Delete user information by ID
+    *
+    * @param INT $id
+    * @return XML|JSON
+    */
     public function user_delete()
     {
          if(!$this->delete('id'))
@@ -79,6 +119,12 @@ class Api extends REST_Controller {
 
     }
 
+    /**
+    * Delete Group information by ID
+    *
+    * @param INT $groupID
+    * @return XML|JSON
+    */
     public function group_delete()
     {
          if(!$this->delete('groupID'))
@@ -93,8 +139,17 @@ class Api extends REST_Controller {
     }
 
 
- 
-   public function user_put()
+    /**
+    * Create user information
+    *
+    * @param INT $id
+    * @param STRING $first_name
+    * @param STRING $last_name
+    * @param INT $groupID
+    * @param STRING $email_address
+    * @return XML|JSON
+    */
+    public function user_put()
     {
         $first_name = $this->put('first_name');
         $last_name = $this->put('last_name');
@@ -111,6 +166,12 @@ class Api extends REST_Controller {
       
     }
 
+    /**
+    * Create Group
+    *
+    * @param STRING $group_name
+    * @return XML|JSON
+    */
     public function group_put()
     {
         $group_name = $this->put('group_name');
@@ -124,6 +185,13 @@ class Api extends REST_Controller {
 
     }
 
+    /**
+    * Update group information by ID
+    *
+    * @param INT $id
+    * @param STRING $group_name
+    * @return XML|JSON
+    */
     public function group_post()
     {
          if(!$this->post('groupID'))
@@ -137,8 +205,18 @@ class Api extends REST_Controller {
         $user =$this->Api_model->updateGroup($parameter);
         $this->response($user,200); 
     }
- 
-    function user_post()
+    
+    /**
+    * Update user information by ID
+    *
+    * @param INT $id
+    * @param STRING $first_name {optional}
+    * @param STRING $last_name {optional}
+    * @param INT $groupID {optional}
+    * @param STRING $email_address {optional}
+    * @return XML|JSON
+    */
+    public function user_post()
     {
          if(!$this->post('id'))
         {
